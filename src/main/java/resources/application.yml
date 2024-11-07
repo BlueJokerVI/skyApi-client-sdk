@@ -1,0 +1,5 @@
+skyApi:
+  client:
+    accessKey: sky
+    secretKet: cc111111
+    uid: 1213123
