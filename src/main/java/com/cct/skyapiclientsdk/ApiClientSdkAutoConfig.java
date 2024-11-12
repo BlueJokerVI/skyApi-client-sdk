@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Data
-@ConfigurationProperties(prefix = "skyApi.client")
+@ConfigurationProperties(prefix = "sky-api.client")
 @Component
 public class ApiClientSdkAutoConfig {
     private String accessKey;

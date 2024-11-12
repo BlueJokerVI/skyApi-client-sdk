@@ -4,6 +4,9 @@ package com.cct.skyapiclientsdk.client;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
+import cn.hutool.json.JSONUtil;
+import com.cct.skyapiclientsdk.model.InvokeReq;
+import com.cct.skyapiclientsdk.model.PostReq;
 import com.cct.skyapiclientsdk.utils.SignUtils;
 
 import java.util.Collections;
@@ -18,7 +21,7 @@ import java.util.Map;
  */
 public class ApiClient {
 
-    private static final String GATEWAY_HOST = "http://localhost:8888";
+    private static final String GATEWAY_HOST = "http://localhost:8080";
 
     private String accessKey;
 
@@ -32,16 +35,44 @@ public class ApiClient {
         this.uid = uid;
     }
 
-    public String getNum() {
+    public String invoke(InvokeReq invokeReq){
+        // todo通过注册中心获取 接口与其uri的关系，然后调用响应的接口
+        return "";
+    }
+
+    public String get(String number) {
 
         Map<String, List<String>> headers = getHeaders();
-        String uri = "/test/getRandomNum";
-        String content = uri + "\n";
+        String uri = "/api/test/get";
+        String param = "number=" + number;
+        String content = uri + "\n" + param;
         String sign = SignUtils.sign(content, secretKey);
-        headers.put("sign",Collections.singletonList(sign));
+        headers.put("sign", Collections.singletonList(sign));
 
+        Map<String, Object> params = new HashMap<>();
+        params.put("number", number);
         HttpResponse response = HttpRequest.get(GATEWAY_HOST + uri)
                 .header(headers)
+                .form(params)
+                .execute();
+
+        String res = response.body();
+        return res;
+    }
+
+
+    public String post(String postReq) {
+
+        Map<String, List<String>> headers = getHeaders();
+        String uri = "/api/test/post";
+        String param = JSONUtil.toJsonStr(postReq);
+        String content = uri + "\n" + param;
+        String sign = SignUtils.sign(content, secretKey);
+        headers.put("sign", Collections.singletonList(sign));
+
+        HttpResponse response = HttpRequest.post(GATEWAY_HOST + uri)
+                .header(headers)
+                .body(param)
                 .execute();
 
         String res = response.body();
@@ -53,8 +84,7 @@ public class ApiClient {
         headers.put("accessKey", Collections.singletonList(accessKey));
         headers.put("nonce", Collections.singletonList(IdUtil.fastSimpleUUID()));
         headers.put("timestamp", Collections.singletonList(System.currentTimeMillis() + ""));
-        headers.put("uid",Collections.singletonList(uid));
-
+        headers.put("uid", Collections.singletonList(uid));
         return headers;
     }
 
