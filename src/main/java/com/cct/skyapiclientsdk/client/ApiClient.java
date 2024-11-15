@@ -5,8 +5,6 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import cn.hutool.json.JSONUtil;
-import com.cct.skyapiclientsdk.model.InvokeReq;
-import com.cct.skyapiclientsdk.model.PostReq;
 import com.cct.skyapiclientsdk.utils.SignUtils;
 
 import java.util.Collections;
@@ -35,10 +33,6 @@ public class ApiClient {
         this.uid = uid;
     }
 
-    public String invoke(InvokeReq invokeReq){
-        // todo通过注册中心获取 接口与其uri的关系，然后调用响应的接口
-        return "";
-    }
 
     public String get(String number) {
 
