@@ -1,12 +1,10 @@
 package com.cct.skyapiclientsdk.client;
 
-
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import cn.hutool.json.JSONUtil;
 import com.cct.skyapiclientsdk.utils.SignUtils;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
