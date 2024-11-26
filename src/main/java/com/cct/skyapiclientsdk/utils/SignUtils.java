@@ -4,9 +4,8 @@ import java.util.Objects;
 
 
 /**
- * @BelongsProject: skyApi-backend
- * @Author: cct
- * @Description: 签名工具类
+ * @author: cct
+ * 签名工具类
  */
 public class SignUtils {
 

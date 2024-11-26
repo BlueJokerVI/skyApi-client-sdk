@@ -4,23 +4,24 @@ import com.cct.skyapiclientsdk.client.ApiClient;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @author cct
- * @description ApiClientSdkAutoConfig自动配置类
+ * ApiClientSdkAutoConfig自动配置类
  */
 
 @Data
 @ConfigurationProperties(prefix = "sky-api.client")
-@Component
+@Configuration
 public class ApiClientSdkAutoConfig {
     private String accessKey;
     private String secretKey;
     private String uid;
+    private String url;
 
     @Bean
     public ApiClient apiClient() {
-        return new ApiClient(accessKey, secretKey, uid);
+        return new ApiClient(accessKey, secretKey, uid, url);
     }
 }
